@@ -1,0 +1,14 @@
+.dashboard-container {
+  display: flex;
+}
+
+.sideMenu-Container {
+  position: relative;
+  width: 17vw;
+  height: 100vh;
+  background-color: rgb(251, 233, 252);
+}
+
+.display-Container {
+  width: 83vw;
+}

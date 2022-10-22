@@ -1,0 +1,22 @@
+.time-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.time-btns {
+  margin: 1em;
+  padding: 0.5em;
+  width: 10em;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all ease-in-out 0.3s;
+}
+
+.time-btns:hover {
+  border: 2px solid purple;
+  color: purple;
+  width: 12em;
+}

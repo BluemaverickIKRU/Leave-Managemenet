@@ -23,7 +23,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   // eslint-disable-next-line
-  const [cookie, setCookie] = useCookies(['accessToken', 'refreshToken']);
+  const [cookie, setCookie] = useCookies();
 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,6 +85,7 @@ const Login = () => {
         setCookie('refreshToken', loginRes.refresh_token, {
           maxAge: loginRes.expires_in,
         });
+        setCookie('test', 'RAMU', { maxAge: 10 });
         dispatch(
           logOnOrOff({
             status: true,
