@@ -21,13 +21,20 @@ const userSlice = createSlice({
         state.leaveData = [];
       }
     },
-    updateLeaveData: (state, action) => {
+    initiateLeaveData: (state, action) => {
       state.leaveData = action.payload;
+    },
+    updateLeaveData: (state, action) => {
+      state.leaveData.push(action.payload);
     },
   },
 });
 
-export const { updateUserInfo, logOnOrOff, updateLeaveData } =
-  userSlice.actions;
+export const {
+  updateUserInfo,
+  logOnOrOff,
+  updateLeaveData,
+  initiateLeaveData,
+} = userSlice.actions;
 
 export default userSlice.reducer;
