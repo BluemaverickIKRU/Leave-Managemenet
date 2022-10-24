@@ -13,6 +13,7 @@ const AllLeaves = () => {
 
   // React State
   const [selectedTime, setSelectedTime] = useState(1);
+  // eslint-disable-next-line
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
@@ -23,7 +24,7 @@ const AllLeaves = () => {
   // Filtered data
   const pastLeaveData = leaveData?.filter((i) => i.start_date < todayDate);
 
-  const upcomingLeaveData = leaveData?.filter((i) => i.start_date > todayDate);
+  const upcomingLeaveData = leaveData?.filter((i) => i.start_date >= todayDate);
 
   const getLeave = async () => {
     const allLeavesReq = fetch(
@@ -46,7 +47,7 @@ const AllLeaves = () => {
     // eslint-disable-next-line
   }, []);
 
-  return leaveData.length == 0 ? (
+  return leaveData.length === 0 ? (
     <div
       style={{
         margin: '0 auto',

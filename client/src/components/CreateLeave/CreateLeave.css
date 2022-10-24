@@ -2,12 +2,43 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 3em;
+  margin-top: 1em;
   width: 25em;
   text-align: center;
 }
 
 .create-leave-illustration {
   width: fit-content;
-  margin: 5em auto;
+  margin: 5em auto 0 auto;
+}
+
+.date-picker {
+  width: 20em;
+  padding: 1em;
+  border: 2px solid purple;
+  border-radius: 0 10em 10em 0;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+}
+
+.date-picker-container label {
+  width: 10em;
+  background-color: purple;
+  border: 2px solid black;
+  padding: 0.9%;
+  padding-bottom: 1.2%;
+  color: white;
+  border-radius: 10em 0 0 10em;
+}
+
+.date-picker-container input {
+  width: 20em;
+  padding: 0.5em;
+  border: 2px solid purple;
+  border-radius: 0 10em 10em 0;
 }
