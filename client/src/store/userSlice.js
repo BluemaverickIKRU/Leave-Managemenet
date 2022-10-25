@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 
 const userSlice = createSlice({
   name: 'user',
@@ -27,6 +28,17 @@ const userSlice = createSlice({
     updateLeaveData: (state, action) => {
       state.leaveData.push(action.payload);
     },
+    editLeaveData: (state, action) => {
+      const { id, data } = action.payload;
+      const filteredArr = state.leaveData.map((i) => {
+        if (i.id === id) {
+          return data;
+        } else {
+          return i;
+        }
+      });
+      state.leaveData = filteredArr;
+    },
   },
 });
 
@@ -35,6 +47,7 @@ export const {
   logOnOrOff,
   updateLeaveData,
   initiateLeaveData,
+  editLeaveData,
 } = userSlice.actions;
 
 export default userSlice.reducer;
