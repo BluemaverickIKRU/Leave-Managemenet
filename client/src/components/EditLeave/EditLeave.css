@@ -16,6 +16,10 @@
   cursor: text;
 }
 
+.edit-leave-container {
+  margin-top: 3em;
+}
+
 .edit-form-btn {
   width: 5em;
   padding: 1%;

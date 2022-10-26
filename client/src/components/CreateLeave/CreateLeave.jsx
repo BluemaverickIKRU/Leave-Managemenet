@@ -35,7 +35,6 @@ const CreateLeave = () => {
       end_date.setDate(end_date.getDate() + 1);
       start_date = start_date.toISOString().slice(0, 10);
       end_date = end_date.toISOString().slice(0, 10);
-      console.log(start_date, end_date, new Date().toISOString().slice(0, 10));
       if (
         start_date >= new Date().toISOString().slice(0, 10) &&
         end_date >= new Date().toISOString().slice(0, 10)
@@ -122,6 +121,7 @@ const CreateLeave = () => {
           <div className="date-picker-container">
             <label>Start Date</label>
             <DatePicker
+              minDate={new Date()}
               placeholderText="YYYY / MM / DD"
               className="date-picker"
               dateFormat={'yyyy-MM-dd'}
@@ -139,6 +139,7 @@ const CreateLeave = () => {
           <div className="date-picker-container">
             <label>End Date</label>
             <DatePicker
+              minDate={leaveInfo.start_date}
               placeholderText="YYYY / MM / DD"
               className="date-picker"
               dateFormat={'yyyy-MM-dd'}

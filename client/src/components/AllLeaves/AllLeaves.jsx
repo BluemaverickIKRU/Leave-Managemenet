@@ -13,6 +13,7 @@ const AllLeaves = () => {
 
   // React State
   const [selectedTime, setSelectedTime] = useState(1);
+  const [loading, setLoading] = useState(false);
   // eslint-disable-next-line
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().slice(0, 10)
@@ -27,6 +28,7 @@ const AllLeaves = () => {
   const upcomingLeaveData = leaveData?.filter((i) => i.start_date >= todayDate);
 
   const getLeave = async () => {
+    setLoading(true);
     const allLeavesReq = fetch(
       'https://dkgicggupnrxldwvkeft.supabase.co/rest/v1/leaves?select=*',
       {
@@ -38,6 +40,7 @@ const AllLeaves = () => {
     );
     const allLeavesRes = await (await allLeavesReq).json();
     dispatch(initiateLeaveData(allLeavesRes));
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const AllLeaves = () => {
     // eslint-disable-next-line
   }, []);
 
-  return leaveData.length === 0 ? (
+  return loading ? (
     <div
       style={{
         margin: '0 auto',
@@ -58,6 +61,23 @@ const AllLeaves = () => {
     >
       <CircularProgress color="secondary" style={{ width: 50, height: 50 }} />
       <p>Loading...Please be patient</p>
+    </div>
+  ) : leaveData.length === 0 ? (
+    <div>
+      <p
+        style={{
+          margin: '0.5em',
+          color: 'purple',
+          fontSize: '2rem',
+          borderBottom: '3px solid',
+          width: '8em',
+        }}
+      >
+        View all leaves
+      </p>
+      <h3 style={{ textAlign: 'center', marginTop: '15em' }}>
+        No leave applied!
+      </h3>
     </div>
   ) : (
     <div className="AllLeavesContainer">

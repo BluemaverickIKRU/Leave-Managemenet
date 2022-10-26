@@ -14,7 +14,6 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
@@ -40,7 +39,6 @@ const EditLeave = () => {
     message: '',
     type: '',
   });
-  const [loading, setLoading] = React.useState(false);
 
   const handleOpen = (row) =>
     setModalInfo((prev) => {
@@ -82,34 +80,42 @@ const EditLeave = () => {
     border: '4px solid #000',
     boxShadow: 24,
     p: 4,
+    paddingBottom: '5em',
     borderRadius: '1em',
   };
 
   const handleEdit = async () => {
-    setLoading(true);
-    const editReq = await fetch(
-      `https://dkgicggupnrxldwvkeft.supabase.co/rest/v1/leaves?id=eq.${modalInfo.id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          apikey: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZ2ljZ2d1cG5yeGxkd3ZrZWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYwMDI4ODMsImV4cCI6MTk4MTU3ODg4M30.BLLinQ9VEK8_T-JE22WOidlJs_0TFhOb1n3zkSVc7eg`,
-          'Content-Type': 'application/json',
-          Prefer: 'return=representation',
-          Authorization: `Bearer ${cookie.accessToken}`,
-        },
-        body: JSON.stringify({
-          start_date: modalInfo.start_date,
-          end_date: modalInfo.end_date,
-          reason: modalInfo.reason,
-        }),
+    if (modalInfo.start_date <= modalInfo.end_date) {
+      const editReq = await fetch(
+        `https://dkgicggupnrxldwvkeft.supabase.co/rest/v1/leaves?id=eq.${modalInfo.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            apikey: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZ2ljZ2d1cG5yeGxkd3ZrZWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjYwMDI4ODMsImV4cCI6MTk4MTU3ODg4M30.BLLinQ9VEK8_T-JE22WOidlJs_0TFhOb1n3zkSVc7eg`,
+            'Content-Type': 'application/json',
+            Prefer: 'return=representation',
+            Authorization: `Bearer ${cookie.accessToken}`,
+          },
+          body: JSON.stringify({
+            start_date: modalInfo.start_date,
+            end_date: modalInfo.end_date,
+            reason: modalInfo.reason,
+          }),
+        }
+      );
+      const editRes = await editReq.json();
+      if (editRes[0].id) {
+        dispatch(editLeaveData({ id: modalInfo.id, data: editRes[0] }));
+        handleAlert('success', 'Successfully updated!');
+      } else {
+        handleAlert('error', 'Error occured while updating!');
       }
-    );
-    const editRes = await editReq.json();
-    if (editRes[0].id) {
-      dispatch(editLeaveData({ id: modalInfo.id, data: editRes[0] }));
     } else {
+      handleAlert(
+        'warning',
+        'Please have the end date after the start date or equal!'
+      );
     }
-    setLoading(false);
   };
 
   const handleAlert = (type, message) => {
@@ -117,8 +123,8 @@ const EditLeave = () => {
       setAlert({ message: '', type: '', isAlert: false });
     }, 5000);
     setAlert({
-      message: { message },
-      type: { type },
+      message: message,
+      type: type,
       isAlert: true,
     });
   };
@@ -152,7 +158,18 @@ const EditLeave = () => {
           <Fade in={modalInfo.open}>
             <Box sx={style}>
               {alert.isAlert && (
-                <Alert severity={alert.type}>{alert.message}</Alert>
+                <Alert
+                  style={{
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translate(-50%,0)',
+                    top: '18em',
+                    width: '25em',
+                  }}
+                  severity={alert.type}
+                >
+                  {alert.message}
+                </Alert>
               )}
               <Typography
                 id="transition-modal-title"
@@ -208,7 +225,7 @@ const EditLeave = () => {
               </div>
               <div style={{ textAlign: 'center', marginTop: '1em' }}>
                 <button onClick={() => handleEdit()} className="edit-form-btn">
-                  {loading ? <CircularProgress /> : 'Save'}
+                  Save
                 </button>
               </div>
             </Box>
@@ -255,7 +272,7 @@ const EditLeave = () => {
             </Table>
           </TableContainer>
         ) : (
-          <h1 style={{ marginTop: '8em' }}>No Data</h1>
+          <h1 style={{ marginTop: '8em', textAlign: 'center' }}>No Data</h1>
         )}
       </div>
     </div>
