@@ -124,7 +124,22 @@ const Login = () => {
         </Alert>
       ) : null}
       <form onSubmit={formik.handleSubmit} className="form-container">
-        <h1 style={{ margin: '0' }}>Login</h1>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <img
+            src="https://www.shahucollegelatur.org.in/Activity%20portal/img/login.gif"
+            alt="Login Logo"
+            width={200}
+            style={{ margin: '0', padding: '0' }}
+          />
+          <h1 style={{ margin: '0', marginBottom: '1em' }}>Login</h1>
+        </div>
         <TextField
           name="email"
           style={{ margin: '0.5em' }}

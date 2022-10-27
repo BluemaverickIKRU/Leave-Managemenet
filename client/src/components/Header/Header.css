@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.header {
+  position: absolute;
+  width: 95vw;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.header p {
+  font-size: 2rem;
+  margin: 0.5em;
+  font-family: 'Dancing Script', cursive;
+}

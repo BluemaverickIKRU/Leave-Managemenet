@@ -7,11 +7,16 @@
 .register-form-container {
   display: flex;
   flex-direction: column;
-  margin: 10em auto;
+  margin: 8em auto;
   width: 25em;
   text-align: center;
 }
 
 .redirect-url-register:hover {
   color: purple;
+}
+
+.register-form-container h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3rem;
 }

@@ -283,7 +283,10 @@ const EditLeave = () => {
                     <TableCell align="center">{row.reason || '-'}</TableCell>
                     <TableCell align="center">
                       <div onClick={() => handleOpen(row)}>
-                        <EditIcon fontSize="small" />
+                        <EditIcon
+                          style={{ cursor: 'pointer' }}
+                          fontSize="small"
+                        />
                       </div>
                     </TableCell>
                   </StyledTableRow>

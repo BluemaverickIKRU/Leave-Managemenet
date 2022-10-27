@@ -134,7 +134,22 @@ const Register = () => {
         </Alert>
       ) : null}
       <form onSubmit={formik.handleSubmit} className="register-form-container">
-        <h1 style={{ margin: '0' }}>Register</h1>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <img
+            src="https://cdn.dribbble.com/users/35253/screenshots/3984334/ideate_dribb.gif"
+            alt="Register logo"
+            width="100"
+            style={{ margin: '0' }}
+          />
+          <h1 style={{ margin: '0', marginBottom: '1em' }}>Register</h1>
+        </div>
         <TextField
           name="name"
           style={{ margin: '0.5em' }}
