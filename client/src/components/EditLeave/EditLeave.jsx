@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
+import Pagination from '@mui/material/Pagination';
 
 import './EditLeave.css';
 import { editLeaveData } from '../../store/userSlice';
@@ -31,6 +32,7 @@ const EditLeave = () => {
   const leaveData = useSelector((state) => state.user.leaveData);
 
   // React State
+  const [page, setPage] = React.useState(1);
   const [modalInfo, setModalInfo] = React.useState({
     open: false,
   });
@@ -59,6 +61,20 @@ const EditLeave = () => {
   const filteredLeaveData = leaveData.filter(
     (i) => i.start_date >= new Date().toISOString().slice(0, 10)
   );
+
+  const PaginationFilteredData =
+    // eslint-disable-next-line
+    filteredLeaveData.filter((i, j) => {
+      if (page === 1 && j + 1 <= 10) {
+        return i;
+      } else if (page > 1) {
+        const end = page * 10;
+        const start = end - 10;
+        if (j >= start && j <= end) {
+          return i;
+        }
+      }
+    });
 
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
@@ -127,6 +143,10 @@ const EditLeave = () => {
       type: type,
       isAlert: true,
     });
+  };
+
+  const handleChange = (event, value) => {
+    setPage(value);
   };
 
   return (
@@ -256,7 +276,7 @@ const EditLeave = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredLeaveData.map((row, i) => (
+                {PaginationFilteredData.map((row, i) => (
                   <StyledTableRow key={i}>
                     <TableCell align="center">{row.start_date}</TableCell>
                     <TableCell align="center">{row.end_date}</TableCell>
@@ -275,6 +295,20 @@ const EditLeave = () => {
           <h1 style={{ marginTop: '8em', textAlign: 'center' }}>No Data</h1>
         )}
       </div>
+      {filteredLeaveData.length > 10 ? (
+        <Pagination
+          style={{
+            marginLeft: 'auto',
+            marginRight: '0',
+            marginTop: '1.3em',
+            width: '25em',
+          }}
+          count={Math.ceil(filteredLeaveData.length / 10)}
+          page={page}
+          color="secondary"
+          onChange={handleChange}
+        />
+      ) : null}
     </div>
   );
 };
