@@ -5,7 +5,6 @@
 
 .time-btns {
   margin: 1em;
-  padding: 0.5em;
   width: 10em;
   background-color: white;
   border: 2px solid black;
@@ -13,10 +12,19 @@
   font-weight: bold;
   cursor: pointer;
   transition: all ease-in-out 0.3s;
+  padding: 0.5em;
 }
 
 .time-btns:hover {
   border: 2px solid purple;
   color: purple;
   width: 12em;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }

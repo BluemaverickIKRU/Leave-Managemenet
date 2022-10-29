@@ -32,7 +32,7 @@ export default function LeavesTable({ leaveData }) {
     } else if (page > 1) {
       const end = page * 10;
       const start = end - 10;
-      if (j >= start && j <= end) {
+      if (j + 1 > start && j + 1 <= end) {
         return i;
       }
     }
